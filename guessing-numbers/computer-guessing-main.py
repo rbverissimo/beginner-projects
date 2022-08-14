@@ -3,7 +3,7 @@ import random
 #The users provide clues to "train" the computer in a sense
 
 count_controller = 0
-x = int(input(print("Define the number which the computer must guess")))
+x = int(input("Define the number which the computer must guess:"))
 rgn_low = 1
 rgn_high = x * 2
 
@@ -13,20 +13,27 @@ def computer_guessing(x):
     rgn = computer_first_guess(x)
     while user_feedback != "c":
         print(f'Is {rgn} too high, low or correct?')
-        user_feedback = input(print("Pass 'H', 'L' or 'C'")).lower()
+        user_feedback = input("Pass 'H', 'L' or 'C'").lower()
         while user_feedback_analyzer(user_feedback) != 0:
             print("Sorry, mate, you gotta tell me if I'm high, low or correct")
-            user_feedback = input(print("Pass 'H', 'L' or 'C'")).lower()
+            user_feedback = input("Pass 'H', 'L' or 'C'").lower()
 
         if user_feedback == "l":
-            rgn_low = rgn
+            rgn_low = rgn + 1
             rgn = guess_controller(rgn_low, rgn_high)
-        if user_feedback == "h":
-            rgn_high = rgn
+        elif user_feedback == "h":
+            rgn_high = rgn - 1
             rgn = guess_controller(rgn_low, rgn_high)
 
 
     print("Correct answer!!!")
+    input("Press anything to continue: ")
+    replay = input("Wanna play again? Y / N").lower()
+
+    if replay == 'y':
+        play_again()
+    else:
+        print("Thanks for playin'")
 
 
 def computer_first_guess(x):
@@ -42,5 +49,13 @@ def user_feedback_analyzer(arg):
         return 0
     else:
         return 1
+
+def play_again():
+    print("Name your number:")
+    y = int(input())
+    count_controller = 0
+    rgn_low = 1
+    rgn_high = y * 2
+    computer_guessing(y)
 
 computer_guessing(x)
