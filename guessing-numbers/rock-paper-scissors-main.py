@@ -13,15 +13,17 @@ def play():
     while choice_validator(user_choice) is False:
         user_choice = input("Choose 'r' for rock, 'p' for paper and 's' for scissors").lower()
 
-    if user_choice == computer_choice:
+    if is_tie(user_choice, computer_choice):
         print("It's a tie")
         pc_score = pc_score + 1
         user_score = user_score + 1
+        print_score()
         play()
 
     if is_win(user_choice, computer_choice):
         user_score = user_score + 3
         print(f'ALRIGHT, {username}, YOU WON!!!')
+        print_score()
         input("Press any key to continue:")
         replay = input("Wanna play again? Y / N").lower()
 
@@ -46,6 +48,12 @@ def choice_validator(user_choice):
     return False
 
 
+def is_tie(user, computer):
+    if user == computer:
+        return True
+    return False
+
+
 def is_win(user, computer):
     if (user == 'r' and computer == 's') or (user == 's' and computer == 'p') or (user == 'p' and computer == 'r'):
         return True
@@ -53,8 +61,8 @@ def is_win(user, computer):
 
 
 def print_score():
-    print(f'Player score {user_score} points\n\n')
-    print(f'Meanwhile, computer scores {pc_score} \n\n ')
+    print(f'Player score {user_score} points\n')
+    print(f'Meanwhile, computer scores {pc_score} \n')
     score_message()
 
 
