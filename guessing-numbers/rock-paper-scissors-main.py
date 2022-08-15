@@ -9,6 +9,7 @@ def play():
     global user_score, pc_score
     user_choice = input("Choose 'r' for rock, 'p' for paper and 's' for scissors").lower()
     computer_choice = random.choice(['r', 'p', 's'])
+    print(f'{username} plays {user_choice} \n Computer plays {computer_choice}')
 
     while choice_validator(user_choice) is False:
         user_choice = input("Choose 'r' for rock, 'p' for paper and 's' for scissors").lower()
@@ -22,15 +23,20 @@ def play():
 
     if is_win(user_choice, computer_choice):
         user_score = user_score + 3
-        print(f'ALRIGHT, {username}, YOU WON!!!')
-        print_score()
-        input("Press any key to continue:")
-        replay = input("Wanna play again? Y / N").lower()
+        print(f'ALRIGHT, {username}, YOU WON!!!\n')
 
-        if replay == 'y':
-            play_again()
-        else:
-            print("Thanks for playing")
+    else:
+        pc_score = pc_score + 3
+        print(f'COMPUTER SCORES!!!\n')
+
+    print_score()
+    input("Press any key to continue:")
+    replay = input("Wanna play again? Y / N").lower()
+
+    if replay == 'y':
+        play_again()
+    else:
+        print("Thanks for playing")
 
 
 def username():
@@ -61,7 +67,7 @@ def is_win(user, computer):
 
 
 def print_score():
-    print(f'Player score {user_score} points\n')
+    print(f'Player score {user_score} points')
     print(f'Meanwhile, computer scores {pc_score} \n')
     score_message()
 
