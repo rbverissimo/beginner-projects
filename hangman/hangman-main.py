@@ -15,7 +15,9 @@ def get_valid_word(words):
 
 def hangman():
     word = get_valid_word(words)
+    #print(word)
     word_letters = set(word)
+    #print(word_letters)
     user_letter = input("Type a letter: ").strip().upper()
     global alphabet
     used_letters = set()
