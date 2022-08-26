@@ -2,7 +2,7 @@ import random
 import string
 from words import words
 
-alphabet = set(string.ascii_uppercase)
+alphabet = set(string.ascii_lowercase)
 
 
 def get_valid_word(words):
@@ -15,21 +15,17 @@ def get_valid_word(words):
 
 def hangman():
     word = get_valid_word(words)
-    #print(word)
+    print(word)
     word_letters = set(word)
-    #print(word_letters)
-    user_letter = input("Type a letter: ").strip().upper()
+    print(word_letters)
+    user_letter = input("Type a letter: ").strip().lower()
     global alphabet
     used_letters = set()
 
-    while string_validator(user_letter) is False or user_letter == '':
-        user_letter = letter_selector()
+    full_validation(user_letter, used_letters, word_letters)
 
-    # validation to see which letters have already been used
-    if user_letter in alphabet - used_letters:
-        used_letters.add(user_letter[0])
-        if user_letter[0] in word_letters:
-            word_letters.remove(user_letter)
+    print(word_letters)
+
 
 
 def string_validator(letter):
@@ -46,13 +42,32 @@ def string_validator(letter):
         return True
 
 
-def selection_validator():
-    pass
+def selection_validator(user_letter, used_letters, word_letters):
+    if user_letter in alphabet - used_letters:
+        used_letters.add(user_letter[0])
+        if user_letter[0] in word_letters:
+            word_letters.remove(user_letter[0])
+    elif user_letter in used_letters:
+        print("You already chose this letter. Please try another one")
+        user_letter = letter_selector()
+        full_validation(user_letter, used_letters, word_letters)
+    else:
+        print("You chose an invalid character")
+        user_letter = letter_selector()
+        full_validation(user_letter, used_letters, word_letters)
 
 
 def letter_selector():
-    user_letter = input("Type a letter: ").strip().upper()
+    user_letter = input("Type a letter: ").strip().lower()
     return user_letter
+
+
+def full_validation(user_letter, used_letters, word_letters):
+    while string_validator(user_letter) is False or user_letter == "":
+        user_letter = letter_selector()
+
+    selection_validator(user_letter, used_letters, word_letters)
+
 
 
 hangman()
