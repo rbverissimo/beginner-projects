@@ -22,10 +22,9 @@ def hangman():
     global alphabet
     used_letters = set()
 
-    full_validation(user_letter, used_letters, word_letters)
-
-    print(word_letters)
-
+    while len(word_letters) > 0:
+        full_validation(user_letter, used_letters, word_letters)
+        print_word(used_letters, word)
 
 
 def string_validator(letter):
@@ -47,8 +46,9 @@ def selection_validator(user_letter, used_letters, word_letters):
         used_letters.add(user_letter[0])
         if user_letter[0] in word_letters:
             word_letters.remove(user_letter[0])
+            print("You guess right!")
     elif user_letter in used_letters:
-        print("You already chose this letter. Please try another one")
+        print("Please try another one")
         user_letter = letter_selector()
         full_validation(user_letter, used_letters, word_letters)
     else:
@@ -68,6 +68,15 @@ def full_validation(user_letter, used_letters, word_letters):
 
     selection_validator(user_letter, used_letters, word_letters)
 
+
+def show_used_letters(used_letters):
+    print("You've already guess these letters: ", " ".join(used_letters))
+
+
+def print_word(used_letters, word):
+    #creates a list while iterating over it in the order
+    word_list = [letter if letter in used_letters else '_' for letter in word]
+    print("Current word:", ' '.join(word_list))
 
 
 hangman()
