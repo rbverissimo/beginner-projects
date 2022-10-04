@@ -13,6 +13,7 @@ class TicTacToe:
         for row in number_board:
             print('| ' + ' | '.join(row) + ' |')
 
+    # create a list of available moves that the player can take
     def available_moves(self):
         return [i for i, spot in enumerate(self.board) if spot == ' ']
         # moves = []
