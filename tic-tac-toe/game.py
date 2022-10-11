@@ -1,3 +1,6 @@
+from player import HumanPlayer, RandomComputerPlayer
+
+
 class TicTacToe:
     def __init__(self):
         self.board = [' ' for _ in range(9)]  # _ for unused variable name
@@ -42,13 +45,13 @@ class TicTacToe:
     def winner(self, square, letter):
         # check the row, square is the index in the list
         row_ind = square // 3
-        row = self.board[row_ind*3: (row_ind + 1) * 3]
+        row = self.board[row_ind * 3: (row_ind + 1) * 3]  # it from row_ind*3 until the other expression
         if all([spot == letter for spot in row]):
             return True
 
         # check column
-        col_ind = square % 3 # division leftovers
-        column = [self.board[col_ind+i*3] for i in range(3)]
+        col_ind = square % 3  # division leftovers
+        column = [self.board[col_ind + i * 3] for i in range(3)]
         if all([spot == letter for spot in column]):
             return True
 
@@ -90,3 +93,10 @@ def play(game, x_player, o_player, print_game=True):
 
             if print_game:
                 print('It\'s a tie!')
+
+
+if __name__ == '__main__':
+    x_player = HumanPlayer('X')
+    o_player = RandomComputerPlayer('O')
+    t = TicTacToe()
+    play(t, x_player, o_player, print_game=True)
