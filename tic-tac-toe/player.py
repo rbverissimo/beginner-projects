@@ -27,7 +27,7 @@ class HumanPlayer(Player):
         valid_square = False  # iterate until find a spot on the list of available_moves
         val = None
         while not valid_square:
-            square = input(self.letter + '\'s turn. Input move (0-9)')
+            square = input(self.letter + '\'s turn. Input move (0-8)')
             # needs casting to int, but if it can't be cast - thrown an error
             try:
                 val = int(square)
