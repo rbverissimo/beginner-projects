@@ -38,3 +38,21 @@ class HumanPlayer(Player):
                 print('Invalid square. Try again')
 
         return val
+
+
+class GeniusComputerPlayer(Player):
+    def __init__(self, letter):
+        super().__init__(letter)
+
+    def get_move(self, game):
+        if len(game.available_moves()) == 9:
+            # it will always take the center first because that's the smartest choice anyway
+            square = 4
+        else:
+            # choose a move trying to maximize win
+            square = self.minimax(game, self.letter)
+        return square
+
+    def minimax(self, state, player):
+        max_player = self.letter
+        other_player = 'O' if player == 'X' else 'X'
