@@ -50,7 +50,7 @@ class GeniusComputerPlayer(Player):
             square = 4
         else:
             # choose a move trying to maximize win
-            square = self.minimax(game, self.letter)
+            square = self.minimax(game, self.letter)['position']
         return square
 
     def minimax(self, state, player):
@@ -72,7 +72,22 @@ class GeniusComputerPlayer(Player):
 
         for possible_move in state.available_moves():
             # 1: make a move, try that spot
-            state.make_move(possible_move, player)
+            state.make_move(possible_move, player)  # it takes a square and a letter
+
             # 2: recurse minimax to simulate a game after that move, hence the loop
+            sim_score = self.minimax(state, other_player)  # alternate players
+
             # 3: undo the move, so that it can test other moves
+            state.board[possible_move] = ' '
+            state.current_winner = None
+            sim_score['position'] = possible_move
+
             # 4: update the dictionaries
+            if player == max_player:
+                if sim_score['score'] > best['score']:
+                    best = sim_score
+            else:
+                if sim_score['score'] < best['score']:
+                    best = sim_score
+
+        return best
