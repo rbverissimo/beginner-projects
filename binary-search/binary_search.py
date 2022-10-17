@@ -39,4 +39,41 @@ if __name__ == '__main__':
     while len(sorted_list) < length:
         sorted_list.add(random.randint(-3 * length, 3 * length))  # a 60k range of int
     sorted_list = sorted(list(sorted_list))  # this will sort the list
+
+    start = time.time()
+    for target in sorted_list:
+        naive_search(sorted_list, target)
+    end = time.time()
+    time_per_iteration = (end - start)/length
+    print("Naive search time: ", time_per_iteration, "seconds")
+
+    start = time.time()
+    for target in sorted_list:
+        binary_search(sorted_list, target)
+    end = time.time()
+    time_per_iteration = (end - start) / length
+    print("Binary search time: ", time_per_iteration, "seconds")
+
+    el_list = set()
+    el_list_length = 60000
+    while len(el_list) < el_list_length:
+        el_list.add(random.randint(0, 59999))
+    el_list = sorted(list(el_list))
     
+    print("\nNow trying a more controlled scenario: \n")
+    start = time.time()
+    for target in el_list:
+        naive_search(el_list, 33333)
+    end = time.time()
+    time_per_iteration = (end - start) / length
+    print("Naive search time: ", time_per_iteration, "seconds")
+
+    start = time.time()
+    for target in el_list:
+        binary_search(el_list, 33333)
+    end = time.time()
+    time_per_iteration = (end - start) / length
+    print("Binary search time: ", time_per_iteration, "seconds")
+
+
+
