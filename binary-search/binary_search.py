@@ -59,7 +59,7 @@ if __name__ == '__main__':
     while len(el_list) < el_list_length:
         el_list.add(random.randint(0, 59999))
     el_list = sorted(list(el_list))
-    
+
     print("\nNow trying a more controlled scenario: \n")
     start = time.time()
     for target in el_list:
@@ -74,6 +74,4 @@ if __name__ == '__main__':
     end = time.time()
     time_per_iteration = (end - start) / length
     print("Binary search time: ", time_per_iteration, "seconds")
-
-
 
