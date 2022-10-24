@@ -69,6 +69,15 @@ class Board:
         return True
 
     def __str__(self):
+        # first off: create a board to print
+        visible_board = [[None for _ in range(self.dim_size)] for _ in range(self.dim_size)]
+        # then print the numbers of how many bombs are there neighboring or a space
+        for row in range(self.dim_size):
+            for col in range(self.dim_size):
+                if(row, col) in self.dug:
+                    visible_board[row][col] = str(self.board[row][col])
+                else:
+                    visible_board[row][col] = ' '
         
 
 
