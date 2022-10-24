@@ -51,9 +51,32 @@ class Board:
 
         return num_n_bombs
 
+    def dig(self, row, col):
+        # hit bomb -> game over, dig w/ neighbor bombs -> finish dig, dig w/ no neighbor bombs -> recurse
+        self.dug.add((row, col))
+
+        if self.board[row][col] == '*':
+            return False
+        elif self.board[row][col] > 0:
+            return True
+
+        for r in range(max(0, row - 1), min(self.dim_size - 1, (row + 1)) + 1):
+            for c in range(max(0, col - 1), min(self.dim_size - 1, (col + 1 )) + 1):
+                if (r, c) in self.dug:
+                    continue
+                self.dig(r, c)
+
+        return True
+
+    def __str__(self):
+        
+
+
+
 
 def play(dim_size=10, num_bombs=10):
     # 1: create board and plat bombs
+    board = Board(dim_size, num_bombs)
     # 2: print the board + take player move
     # 3: if location bomb - throw game over, if location not bomb open recursively
     # 4: check condition to win
