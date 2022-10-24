@@ -17,7 +17,7 @@ class Board:
         # the board will be set as a bunch of nones instead of fields
         bombs_set = 0
         while bombs_set < self.num_bombs:
-            loc = random.randint(0, self.dim_size**2 - 1)  # since the board is 10x10 for example, 99 choices
+            loc = random.randint(0, self.dim_size ** 2 - 1)  # since the board is 10x10 for example, 99 choices
             row = loc // self.dim_size  # 99//10= 9
             col = loc % self.dim_size  # 99%10 = 9
 
@@ -31,16 +31,25 @@ class Board:
 
     def assign_values_to_board(self):
         # iterate over the board list, assign values based on bombs
-        for r in range(self.dim_size):  # shouldn't it be 0 index?
+        for r in range(self.dim_size):
             for c in range(self.dim_size):
                 if self.board[r][c] == '*':
                     continue
                 self.board[r][c] = self.get_num_neighbor_bombs(r, c)
-    
 
+    def get_num_neighbor_bombs(self, row, col):
+        #  analyze neighbors to get the sum of the bombs in the neighbors
+        # definition of neighbor: c-1 r, c r-1, c+1 r, c r+1 % == 1
+        # cross neighboring: c-1 r-1, c-1 r+1, c+1 r+1, c+1 r-1  % == 2
+        num_n_bombs = 0
+        for r in range(max(0, row - 1), min(self.dim_size - 1, (row + 1)) + 1):  # max and min for balancing 0,0 or 9,9
+            for c in range(max(0, col - 1), min(self.dim_size - 1, (col + 1)) + 1):
+                if r == row and c == col:
+                    continue
+                if self.board[r][c] == '*':
+                    num_n_bombs += 1
 
-
-
+        return num_n_bombs
 
 
 def play(dim_size=10, num_bombs=10):
