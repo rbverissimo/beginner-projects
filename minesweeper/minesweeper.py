@@ -80,7 +80,11 @@ class Board:
                     visible_board[row][col] = ' '
 
         string_rep = ' '  # return as the full representation of the board
-        widths = []
+        widths = []  # gets max column widths for printing
+
+        for idx in range(self.dim_size):
+            columns = map(lambda x: x[idx], visible_board)
+            widths.append(len(max(columns, key=len)))
 
         indices = [i for i in range(self.dim_size)]
         indices_row = '  '
