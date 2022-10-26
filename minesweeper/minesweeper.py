@@ -78,10 +78,36 @@ class Board:
                     visible_board[row][col] = str(self.board[row][col])
                 else:
                     visible_board[row][col] = ' '
+
+        string_rep = ' '  # return as the full representation of the board
+        widths = []
+
+        indices = [i for i in range(self.dim_size)]
+        indices_row = '  '
+        cells = []
+        #  this first loop creates the representation of the core of the board
+        for idx, col in enumerate(indices):
+            format = '%-' + str(widths[idx]) + "s"
+            cells.append(format % col)
+        indices_row += '  '.join(cells)
+        indices_row += ' \n'
+        # once it goes here the loop is going the print numbers for reference on the side of the board
+        for i in range(len(visible_board)):
+            row = visible_board[i]
+            string_rep += f'{i} |'
+            cells = []
+            for idx, col in enumerate(row):
+                format = '%-' + str(widths[idx]) + "s"
+                cells.append(format % col)
+            string_rep += ' |'.join(cells)
+            string_rep += ' |\n'
+
+        str_len = int(len(string_rep) / self.dim_size) # we need the str_len so that we can organize things
+        # this last line combines everything into one single string to be returned
+        string_rep = indices_row + '-'*str_len + '\n' + string_rep + '-'*str_len
+
+        return string_rep
         
-
-
-
 
 def play(dim_size=10, num_bombs=10):
     # 1: create board and plat bombs
