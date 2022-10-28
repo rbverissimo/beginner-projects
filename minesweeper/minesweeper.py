@@ -130,9 +130,21 @@ def play(dim_size=10, num_bombs=10):
             continue
 
         # by default, safe is true
-        safe_dig = board.dig(row, col)
-        if not safe_dig:
-            break
+        safe = board.dig(row, col)
+        if not safe:
+            break  # (game over)
+
+    if safe:
+        print("You won! Congrats!!")
+    else:
+        print("Game over :(")
+        board.dug = [(r, c) for r in range(board.dim_size) for c in range(board.dim_size)]
+        print(board)
+
+
+if __name__ == '__main__':
+    play()
+
 
 
 
