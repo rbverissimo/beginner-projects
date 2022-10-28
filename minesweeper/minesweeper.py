@@ -124,5 +124,5 @@ def play(dim_size=10, num_bombs=10):
         print(board)
         # RegEx for validation purposes during the input
         user_input = re.split(',(\\s)*', input("Where would you like to dig? Input as row,col: "))
-        
+
 
