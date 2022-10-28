@@ -80,7 +80,7 @@ class Board:
                 else:
                     visible_board[row][col] = ' '
 
-        string_rep = ' '  # return as the full representation of the board
+        string_rep = ''  # return as the full representation of the board
         widths = []  # gets max column widths for printing
 
         for idx in range(self.dim_size):
