@@ -1,7 +1,7 @@
 
 import os
 
-global counter
+
 
 print("Hi! Let's create some insane text \n")
 input("Press any key to continue: \n")
@@ -30,7 +30,8 @@ def madlib_generator():
 
 def retry():
     print("Do you wanna play again? Y or Press any key to finish")
-    counter += 1
+    global counter
+    counter = 10
     retry = input()
     if retry.lower() == 'y':
         madlib_generator()
@@ -39,6 +40,7 @@ def retry():
 
 def game_over():
     print("Thanks for playing!!")
+    print('\nYou played ', counter, ' times')
 
 
 madlib_generator()
